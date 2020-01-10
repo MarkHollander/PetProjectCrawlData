@@ -23,9 +23,13 @@ namespace PetProjectCrawlData
                             .First(nodes => nodes.Attributes.Contains("class") && nodes.Attributes["class"].Value == "ktnc-list")
                             .ChildNodes.Where(nodes => nodes.Attributes.Contains("class") && nodes.Attributes["class"].Value == "ktncli")
                             .ToList();
+            List<object> items = new List<object>();
             foreach (var item in ThreadItems)
             {
-
+                HtmlNode linkNode = item.Descendants("a").First(nodes => nodes.Attributes.Contains("class") && nodes.Attributes["Class"].Value == "ktncli-ava");
+                string text = linkNode.InnerText;
+                string link = linkNode.Attributes["href"].Value;
+                items.Add(new { text, link });
             }
         }
     }
